@@ -1,34 +1,27 @@
-import HelloWorldScene from "./scenes/HelloWorldScene.js";
+import MenuScene from './scenes/MenuScene.js';
+import DungeonScene from './scenes/DungeonScene.js';
+import Derrota from './scenes/Derrota.js';
 
-// Create a new Phaser config object
+// Create a new Phaser game instance
+
 const config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 600,
-  scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    min: {
-      width: 800,
-      height: 600,
-    },
-    max: {
-      width: 1600,
-      height: 1200,
-    },
-  },
+  width: 600,
+  height: 260,
+  backgroundColor: "00000",
+  parent: "game-container",
+  pixelArt: true,
+  scene: [MenuScene, DungeonScene, Derrota],
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 200 },
-      debug: true,
+      gravity: { y: 0 },
+        debug: false
     },
   },
-  // List of scenes to load
-  // Only the first scene will be shown
-  // Remember to import the scene before adding it to the list
-  scene: [HelloWorldScene],
+  scale: {
+    zoom: 2.25
+  }
 };
 
-// Create a new Phaser game instance
-window.game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
