@@ -2,7 +2,7 @@ export default class Game extends Phaser.Scene {
 
     constructor() {
       super("game");
-      this.score = 0;
+      this.score = null;
       this.shaderTime = 0;
       this.purpleLightShader = null;
       this.attackHitbox = null;
@@ -24,6 +24,8 @@ export default class Game extends Phaser.Scene {
     }
   
     create() {
+      this.score = 0;
+      
       this.attackHitbox = this.add.rectangle(0, 0, 16, 16);
       this.attackHitbox.setVisible(false);
       this.physics.world.enable(this.attackHitbox);
