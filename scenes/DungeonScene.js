@@ -25,7 +25,7 @@ export default class Game extends Phaser.Scene {
   
     create() {
       this.score = 0;
-      
+
       this.attackHitbox = this.add.rectangle(0, 0, 16, 16);
       this.attackHitbox.setVisible(false);
       this.physics.world.enable(this.attackHitbox);
@@ -311,6 +311,7 @@ export default class Game extends Phaser.Scene {
   
     handlePlayerEnemyCollision(player, enemy) {
       this.faune.anims.play('faune-hit', true);
+      this.cursors = null;
       this.faune.body.enable = false;
       this.time.delayedCall(3000, () => {
         this.scene.start('gameover');
