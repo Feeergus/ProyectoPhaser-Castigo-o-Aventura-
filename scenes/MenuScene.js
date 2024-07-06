@@ -1,6 +1,8 @@
 class MenuScene extends Phaser.Scene {
     constructor() {
         super({ key: 'MenuScene' });
+        this.backgroundColor = null;
+        
     }
 
     preload() {
@@ -10,6 +12,7 @@ class MenuScene extends Phaser.Scene {
 
     create() {
         // Agregar el título del menú
+        this.cameras.main.setBackgroundColor('#4c2882');
         this.add.text(this.scale.width / 2, this.scale.height / 4, 'Castigo o Aventura?', {
             fontSize: '32px',
             fill: '#ffffff'
