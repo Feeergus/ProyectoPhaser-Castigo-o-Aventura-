@@ -20,7 +20,7 @@ class GameOver extends Phaser.Scene{
         const defeatImage = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY + 50, 'defeat');
         defeatImage.setOrigin(0.5);
 
-        this.time.delayedCall(3000, () => {
+        this.time.delayedCall(1500, () => {
             this.scene.start('MenuScene');
         });
     }
