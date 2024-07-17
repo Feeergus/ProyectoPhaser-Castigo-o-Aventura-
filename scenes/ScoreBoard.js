@@ -5,11 +5,13 @@ class ScoreboardScene extends Phaser.Scene {
 
     preload() {
         // Aquí puedes precargar assets si es necesario
+        this.load.image("caja", "tiles/2.png");
     }
 
     create() {
+        this.box = this.add.image(300, 30, "caja").setScale(0.85);
         this.add.text(this.scale.width / 2, this.scale.height / 8, 'Tabla de Puntajes:', {
-            fontSize: '32px',
+            fontSize: '20px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
@@ -22,11 +24,11 @@ class ScoreboardScene extends Phaser.Scene {
     displayScores() {
         const padding = 20;
         const startX = 50;
-        const startY = 50;
+        const startY = 70;
         const textStyle = { font: '16px Arial', fill: '#ffffff' };
 
         this.scores.forEach((score, index) => {
-            this.add.text(startX, startY + index * padding, `${index + 1}. ${score}`, textStyle);
+            this.add.text(startX, startY + index * padding, `${index + 1}: Mejor Puntaje ${score}`, textStyle);
         });
 
         // Agregar desplazamiento si hay muchos puntajes para que quepan en la pantalla

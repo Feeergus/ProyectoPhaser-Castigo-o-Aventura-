@@ -26,7 +26,7 @@ export default class Game extends Phaser.Scene {
     }
   
     create() {
-      
+      this.score = 0;
 
       this.attackHitbox = this.add.rectangle(0, 0, 16, 16);
       this.attackHitbox.setVisible(false);
@@ -388,7 +388,7 @@ export default class Game extends Phaser.Scene {
     }
 
     saveScore(score) {
-      //localStorage.clear();
+      //localStorage.clear();    
       let storeScore = localStorage.getItem('scores');
       console.log('Stored Scores:', storeScore);
 
@@ -402,6 +402,8 @@ export default class Game extends Phaser.Scene {
           // Puedes manejar el error aquí según tus necesidades
         }
       }
+
+     
 
       console.log('Current Scores:', scores);
       scores.push(score);
