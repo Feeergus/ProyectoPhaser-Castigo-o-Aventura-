@@ -1,6 +1,7 @@
 import MenuScene from './scenes/MenuScene.js';
 import DungeonScene from './scenes/DungeonScene.js';
-import Derrota from './scenes/Derrota.js';
+import Derrota from './scenes/Derrota.js'
+import ScoreboardScene from './scenes/ScoreBoard.js';
 
 // Create a new Phaser game instance
 
@@ -11,7 +12,7 @@ const config = {
   backgroundColor: "00000",
   parent: "game-container",
   pixelArt: true,
-  scene: [MenuScene, DungeonScene, Derrota],
+  scene: [MenuScene, DungeonScene, ScoreboardScene],
   physics: {
     default: "arcade",
     arcade: {

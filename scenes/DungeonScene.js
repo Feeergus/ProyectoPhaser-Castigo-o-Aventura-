@@ -2,7 +2,6 @@ export default class Game extends Phaser.Scene {
 
     constructor() {
       super("game");
-      this.score = null;
       this.shaderTime = 0;
       this.purpleLightShader = null;
       this.attackHitbox = null;
@@ -10,6 +9,8 @@ export default class Game extends Phaser.Scene {
       this.coinsGroup = null;
       this.enemysGroup = null;
       this.LayerArriba = null;
+      this.box = null;
+      this.score = 0;
     }
   
     preload() {
@@ -20,11 +21,12 @@ export default class Game extends Phaser.Scene {
       this.load.atlas("coins", "coins/spritesheet.png", "coins/spritesheet.json");
       this.load.image("espada", "character/espada1.png");
       this.load.glsl("purpleLightShader", "shaders/purpleLight.glsl");
+      this.load.image("caja", "tiles/2.png");
       this.cursors = this.input.keyboard.createCursorKeys();
     }
   
     create() {
-      this.score = 0;
+      
 
       this.attackHitbox = this.add.rectangle(0, 0, 16, 16);
       this.attackHitbox.setVisible(false);
@@ -62,13 +64,16 @@ export default class Game extends Phaser.Scene {
       this.faune.setScale(0.7)
       this.physics.add.collider(this.faune, this.LayerArriba);
       this.cameras.main.startFollow(this.faune, true);
-  
+      
       this.createEnemies(map);
       this.physics.add.collider(this.enemysGroup, this.LayerArriba);
       this.physics.add.collider(this.faune, this.enemysGroup, this.handlePlayerEnemyCollision, null, this);
-  
-      this.scoreText = this.add.text(16, 16, 'Puntuación: 0', { fontSize: '20px', fill: '#fff' });
+      
+      this.box = this.add.image(96, 25, "caja").setScale(0.6).setDepth(2);
+      this.scoreText = this.add.text(16, 16, 'Puntuación:0', { fontSize: '17px', fill: '#fff' }).setDepth(3);
       this.scoreText.setScrollFactor(0);
+      this.box.setScrollFactor(0);
+      
   
       this.createAnimations();
   
@@ -217,7 +222,7 @@ export default class Game extends Phaser.Scene {
     collectCoin(player, coin) {
       coin.disableBody(true, true); 
       this.score += 10;
-      this.scoreText.setText(`Puntuacion: ${this.score}`);
+      this.scoreText.setText(`Puntuacion:${this.score}`);
     }
   
     activateHitbox() {
@@ -251,7 +256,8 @@ export default class Game extends Phaser.Scene {
     updateHitboxPosition() {
       const offsetX = 16;
       const offsetY = 0;
-  
+      
+     
       switch (this.faune.anims.currentAnim.key) {
         case 'faune-run-up':
         case 'faune-idle-up':
@@ -313,8 +319,10 @@ export default class Game extends Phaser.Scene {
       this.faune.anims.play('faune-hit', true);
       this.cursors = null;
       this.faune.body.enable = false;
+      this.saveScore(this.score);
+      console.log(this.score);
       this.time.delayedCall(3000, () => {
-        this.scene.start('gameover');
+        this.scene.start('ScoreboardScene');
       });
     }
   
@@ -378,6 +386,30 @@ export default class Game extends Phaser.Scene {
   
       this.faune.play("faune-idle-down");
     }
-  
+
+    saveScore(score) {
+      //localStorage.clear();
+      let storeScore = localStorage.getItem('scores');
+      console.log('Stored Scores:', storeScore);
+
+      // Manejar el caso donde storeScore es null o undefined
+      let scores = [];
+      if (storeScore) {
+        try {
+          scores = JSON.parse(storeScore);
+        } catch (error) {
+          console.error('Error parsing JSON:', error);
+          // Puedes manejar el error aquí según tus necesidades
+        }
+      }
+
+      console.log('Current Scores:', scores);
+      scores.push(score);
+      scores.sort((a, b) => b - a); // Ordenar de mayor a menor
+
+      localStorage.setItem('scores', JSON.stringify(scores));
+    }
   }
+
+
   
