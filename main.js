@@ -8,7 +8,7 @@ import ScoreboardScene from './scenes/ScoreBoard.js';
 const config = {
   type: Phaser.AUTO,
   width: 600,
-  height: 260,
+  height: 330,
   backgroundColor: "00000",
   parent: "game-container",
   pixelArt: true,
